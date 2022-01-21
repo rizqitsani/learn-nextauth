@@ -14,5 +14,7 @@ export const config = {
   jwtSecret: getEnvironmentVariable('JWT_SECRET'),
   githubId: getEnvironmentVariable('GITHUB_CLIENT_ID'),
   githubSecret: getEnvironmentVariable('GITHUB_CLIENT_SECRET'),
+  googleId: getEnvironmentVariable('GOOGLE_CLIENT_ID'),
+  googleSecret: getEnvironmentVariable('GOOGLE_CLIENT_SECRET'),
   secret: getEnvironmentVariable('AUTH_SECRET'),
 };
