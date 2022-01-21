@@ -1,6 +1,19 @@
 import { useRouter } from 'next/router';
-import { Box, Flex, HStack, useColorModeValue as mode } from '@chakra-ui/react';
+import { signOut, useSession } from 'next-auth/react';
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useColorModeValue as mode,
+} from '@chakra-ui/react';
 import { IconType } from 'react-icons';
+import { HiChevronDown } from 'react-icons/hi';
 
 import ColorModeSwitcher from '@/components/ColorModeSwitcher';
 import Container from '@/components/Container';
@@ -22,6 +35,8 @@ const links: NavLinksType = [
 
 const NavBar = () => {
   const { asPath } = useRouter();
+
+  const { data: session, status } = useSession();
 
   return (
     <Box
@@ -58,11 +73,29 @@ const NavBar = () => {
             ))}
           </HStack>
         </HStack>
-        <Flex align='center'>
+        <Flex align='center' gap={2}>
           <ColorModeSwitcher
             aria-label={`Switch to ${mode('dark', 'light')} mode`}
             display={{ base: 'none', md: 'flex' }}
           />
+          {status === 'authenticated' && session && (
+            <Menu>
+              <MenuButton
+                as={Button}
+                variant='ghost'
+                rightIcon={<HiChevronDown />}
+                borderRadius='full'
+              >
+                {session?.user?.image && (
+                  <Avatar size='xs' src={session?.user?.image} />
+                )}
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+          )}
+
           <Box>
             <MobileNav links={links} />
           </Box>

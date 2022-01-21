@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <NextLink href='/' passHref>
       <Text as='a' fontSize='lg' fontWeight='semibold'>
-        next-chakra-ts
+        Learn NextAuth
       </Text>
     </NextLink>
   );
